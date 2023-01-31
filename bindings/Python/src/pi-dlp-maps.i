@@ -30,17 +30,20 @@
 // -----------------------------------------------
 // a char value that allows None for a null value.
 // -----------------------------------------------
-%typemap (python,in) char *ALLOWNULL {
+#ifdef SWIG<python>
+%typemap (in) char *ALLOWNULL {
     if (!($input) || ($input == Py_None))
 		$1 = NULL;
     else
 		$1 = PyString_AsString($input);
 }
+#endif
 
 // -------------------------------------
 //  type/creator pair
 // -------------------------------------
-%typemap (python,in) unsigned long creator, unsigned long type {
+#ifdef SWIG<python>
+%typemap (in) unsigned long creator, unsigned long type {
     if (PyString_Check($input))
         $1 = makelong(PyString_AS_STRING($input));
     else if (PyInt_Check($input))
@@ -50,6 +53,7 @@
         SWIG_fail;
     }
 }
+#endif
 
 // ----------------------------------------------------------
 // output parameters. Output parameters should be ommitted
@@ -80,29 +84,39 @@
 // -------------------------------------
 %rename(dlp_GetSysDateTime_) dlp_GetSysDateTime;
 
-%typemap (python,in,numinputs=0) time_t *time (time_t time) {
+#ifdef SWIG<python>
+%typemap (in,numinputs=0) time_t *time (time_t time) {
     $1 = (time_t *)&time;
 }
-%typemap (python,argout) time_t *time (time_t time) {
+#endif
+#ifdef SWIG<python>
+%typemap (argout) time_t *time (time_t time) {
     if ($1) $result = PyInt_FromLong((unsigned long ) $1);
 }
+#endif
 
 // -------------------------------------
 // struct PilotUser
 // -------------------------------------
-%typemap (python,in) const struct PilotUser* (struct PilotUser temp) %{
+#ifdef SWIG<python>
+%typemap (in) const struct PilotUser* (struct PilotUser temp) %{
 	if (!PyObjectToPilotUser($input, &temp))
 	    SWIG_fail;
 	$1 = &temp;
 %}
+#endif
 
-%typemap (python,in,numinputs=0) struct PilotUser* (struct PilotUser temp) %{
+#ifdef SWIG<python>
+%typemap (in,numinputs=0) struct PilotUser* (struct PilotUser temp) %{
     $1 = &temp;
 %}
+#endif
 
-%typemap (python,argout) struct PilotUser* %{
+#ifdef SWIG<python>
+%typemap (argout) struct PilotUser* %{
     if ($1) $result = t_output_helper($result, PyObjectFromPilotUser($1));
 %}
+#endif
 
 // -------------------------------------
 // struct SysInfo
@@ -111,71 +125,93 @@
     $1 = &temp;
 %}
 
-%typemap (python,argout) struct SysInfo * %{
+#ifdef SWIG<python>
+%typemap (argout) struct SysInfo * %{
     if ($1) $result = t_output_helper($result, PyObjectFromSysInfo($1));
 %}
+#endif
 
 // -------------------------------------
 // struct CardInfo
 // -------------------------------------
-%typemap (python,argout) (struct CardInfo *cardinfo) %{
+#ifdef SWIG<python>
+%typemap (argout) (struct CardInfo *cardinfo) %{
     if ($1) $result = t_output_helper($result, PyObjectFromCardInfo($1));
 %}
+#endif
 
-%typemap (python,in,numinputs=0) struct CardInfo *cardinfo (struct CardInfo temp) %{
+#ifdef SWIG<python>
+%typemap (in,numinputs=0) struct CardInfo *cardinfo (struct CardInfo temp) %{
     $1 = &temp;
 %}
+#endif
 
 // -------------------------------------
 // struct NetSyncInfo
 // -------------------------------------
-%typemap (python,in,numinputs=0) struct NetSyncInfo *OUTPUT (struct NetSyncInfo temp) {
+#ifdef SWIG<python>
+%typemap (in,numinputs=0) struct NetSyncInfo *OUTPUT (struct NetSyncInfo temp) {
     $1 = &temp;
 }
+#endif
 
-%typemap (python,argout) struct NetSyncInfo *OUTPUT %{
+#ifdef SWIG<python>
+%typemap (argout) struct NetSyncInfo *OUTPUT %{
     if ($1) $result = t_output_helper($result, PyObjectFromNetSyncInfo($1));
 %}
+#endif
 
-%typemap (python,in) struct NetSyncInfo *INPUT (struct NetSyncInfo temp) %{
+#ifdef SWIG<python>
+%typemap (in) struct NetSyncInfo *INPUT (struct NetSyncInfo temp) %{
 	PyObjectToNetSyncInfo($input, &temp);
     $1 = &temp;
 %}
+#endif
 
 // -------------------------------------
 // Passing data as parameter
 // -------------------------------------
-%typemap (python,in) (const void *databuf, size_t datasize) %{
+#ifdef SWIG<python>
+%typemap (in) (const void *databuf, size_t datasize) %{
 	$1 = (void *)PyString_AsString($input);
 	$2 = PyString_Size($input);
 %}
+#endif
 
-%typemap (python,in) (size_t datasize, const void *databuf) %{
+#ifdef SWIG<python>
+%typemap (in) (size_t datasize, const void *databuf) %{
     $1 = PyString_Size($input);
     $2 = (void *)PyString_AsString($input);
 %}
+#endif
 
 // -------------------------------------
 // Used by dlp_ReadAppPreference
 // -------------------------------------
-%typemap (python,argout) (void *databuf, size_t *datasize, int *version) %{
+#ifdef SWIG<python>
+%typemap (argout) (void *databuf, size_t *datasize, int *version) %{
 	if ($1) $result = t_output_helper($result, Py_BuildValue("is#", $3, $1, $2));
 %}
+#endif
 
 // ---------------------------------------------------------
 // Finding databases: proper wrapping of dlp_Find* functions
 // so that they do not need to be passed a pointer
 // ---------------------------------------------------------
-%typemap (python,in,numinputs=0)  (struct DBInfo *dbInfo, struct DBSizeInfo *dbSize)
+#ifdef SWIG<python>
+%typemap (in,numinputs=0)  (struct DBInfo *dbInfo, struct DBSizeInfo *dbSize)
 		(struct DBInfo temp1, struct DBSizeInfo temp2) %{
 	$1 = &temp1;
 	$2 = &temp2;
 %}
+#endif
 
-%typemap (python,argout) (struct DBInfo *dbInfo, struct DBSizeInfo *dbSize) %{
+#ifdef SWIG<python>
+%typemap (argout) (struct DBInfo *dbInfo, struct DBSizeInfo *dbSize) %{
 	if ($1) $result = t_output_helper($result, PyObjectFromDBInfo($1));
 	if ($2) $result = t_output_helper($result, PyObjectFromDBSizeInfo($2));
 %}
+#endif
 
 // -------------------------------------
 // Processing of a buffer containing a
@@ -184,7 +220,8 @@
 // we provide a python implementation for dlp_ReadDBList (see ../pisockextras.py)
 %rename(dlp_ReadDBList_) dlp_ReadDBList;
 
-%typemap (python,argout) (pi_buffer_t *dblist) %{
+#ifdef SWIG<python>
+%typemap (argout) (pi_buffer_t *dblist) %{
 	if ($1) {
 		int j;
 		struct DBInfo info;
@@ -197,24 +234,29 @@
 		}
 	}
 %}
+#endif
 
 // -----------------------------------------
 // Mapping for dlp_ExpSlotEnumerate
 // -----------------------------------------
-%typemap (python,in,numinputs=0) (int *numslots, int *slotrefs)
+#ifdef SWIG<python>
+%typemap (in,numinputs=0) (int *numslots, int *slotrefs)
 		(int numSlots, int slotRefs[16]) %{
 	numSlots = sizeof(slotRefs) / sizeof(slotRefs[0]);
 	$1 = &numSlots;
 	$2 = &slotRefs[0];
 %}
+#endif
 
-%typemap (python,argout) (int *numslots, int *slotrefs) %{
+#ifdef SWIG<python>
+%typemap (argout) (int *numslots, int *slotrefs) %{
 	if ($1 && $2) {
 		int slotIndex;
 		for (slotIndex=0; slotIndex < *$1; slotIndex++)
 			t_output_helper($result, PyInt_FromLong($2[slotIndex]));
 	}
 %}
+#endif
 
 // -----------------------------------------
 // Custom wrappers for some of the functions

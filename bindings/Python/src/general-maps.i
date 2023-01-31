@@ -39,12 +39,14 @@
 	}
 }
 
-%typemap (python,argout) (pi_buffer_t *) {
+#ifdef SWIG<python>
+%typemap (argout) (pi_buffer_t *) {
 	if ($1) {
 		PyObject *o1 = Py_BuildValue("s#", $1->data, $1->used);
 		$result = t_output_helper($result, o1);
 	}
 }
+#endif
 
 %typemap (in,numinputs=0) (size_t *OUTBUFLEN) (size_t outbuflen) {
   outbuflen = 0xFFFF;
@@ -58,15 +60,18 @@
     $1 = &temp;
 %}
 
-%typemap (python,argout) struct DBInfo *OUTPUT %{
+#ifdef SWIG<python>
+%typemap (argout) struct DBInfo *OUTPUT %{
     if ($1) $result = t_output_helper($result, PyObjectFromDBInfo($1));
 %}
+#endif
 
 // ------------------------------------------------------------------
 // Type/creator strings
 // a generic 4-character string type, for use as a type or creator ID
 // ------------------------------------------------------------------
-%typemap (python,in) unsigned long STR4 {
+#ifdef SWIG<python>
+%typemap (in) unsigned long STR4 {
 	if (!($input) || ($input == Py_None)) {
 		$1 = 0;
 	} else {
@@ -77,8 +82,9 @@
 		$1 = makelong(PyString_AsString($input));
 	}
 }
-
-%typemap (python,in) long STR4 {
+#endif
+#ifdef SWIG<python>
+%typemap (in) long STR4 {
 	if (!($input) || ($input == Py_None)) {
 		$1 = 0;
 	} else {
@@ -89,13 +95,16 @@
 		$1 = makelong(PyString_AsString($input));
 	}
 }
+#endif
 
-%typemap (python,argout) unsigned long *OUTSTR4 {
+#ifdef SWIG<python>
+%typemap (argout) unsigned long *OUTSTR4 {
 	if ($1) {
 		PyObject *o = PyString_FromStringAndSize(printlong(*$1), 4);
 		$result = t_output_helper($result, o);
 	}
 }
+#endif
 
 %typemap (in,numinputs=0) unsigned long *OUTSTR4 (unsigned long temp) {
 	$1 = &temp;

@@ -26,7 +26,8 @@
 // pi-sockaddr... the real structure might be defined in one of two
 // different ways, but luckily SWIG doesnt really care.
 //
-%typemap (python,in) struct sockaddr *INPUT {
+#ifdef SWIG<python>
+%typemap (in) struct sockaddr *INPUT {
     static struct pi_sockaddr temp;
     char *dev;
     int len;
@@ -41,8 +42,10 @@
     temp.pi_device[len] = 0;
     $1 = (struct sockaddr *)&temp;
 }
+#endif
 
-%typemap (python, argout,fragment="t_output_helper") struct sockaddr *remote_addr {
+#ifdef SWIG<python>
+%typemap (argout,fragment="t_output_helper") struct sockaddr *remote_addr {
     PyObject *o;
 
     if ($1) {
@@ -51,12 +54,17 @@
 		$result = t_output_helper($result, o);
     }
 }
+#endif
 
-%typemap (python,in,numinputs=0) struct sockaddr *remote_addr (struct pi_sockaddr temp) {
+#ifdef SWIG<python>
+%typemap (in,numinputs=0) struct sockaddr *remote_addr (struct pi_sockaddr temp) {
     $1 = (struct sockaddr *)&temp;
 }
+#endif
 
-%typemap (python,in,numinputs=0) size_t *namelen (size_t temp) {
+#ifdef SWIG<python>
+%typemap (in,numinputs=0) size_t *namelen (size_t temp) {
     $1 = (size_t *)&temp;
 }
+#endif
 

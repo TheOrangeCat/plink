@@ -20,13 +20,13 @@ AC_DEFUN([AM_CHECK_PYTHON],
                 AC_PATH_PROG(PYTHON, python)
 
                 if test "$PYTHON" != ""; then
-                        PYTHON_VERSION=`$PYTHON -c "import sys; print sys.version[[0:3]]"`
-                        PYTHON_PREFIX=`$PYTHON -c "import sys; print sys.prefix"`
+                        PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[[0:3]])"`
+                        PYTHON_PREFIX=`$PYTHON -c "import sys; print(sys.prefix)"`
                 fi
 
                 AC_MSG_CHECKING(for Python.h)
 
-                PYTHON_EXEC_PREFIX=`$PYTHON -c "import sys; print sys.exec_prefix"`
+                PYTHON_EXEC_PREFIX=`$PYTHON -c "import sys; print(sys.exec_prefix)"`
 
                 if test "$PYTHON_VERSION" != ""; then 
                         if test -f $PYTHON_PREFIX/include/python$PYTHON_VERSION/Python.h; then 
