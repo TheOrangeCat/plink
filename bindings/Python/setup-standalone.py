@@ -29,7 +29,7 @@ else:
     link_options = None
 
 setup(name = "python-libpisock",
-      version = "0.12.5",
+      version = "0.12.6",
       description = "Python bindings for the pisock library linked in a standalone module (not requiring the libpisock shared lib).",
       author = "Florent Pillet",
       author_email = "pilot-link@florentpillet.com",

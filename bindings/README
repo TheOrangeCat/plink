@@ -4,7 +4,7 @@ public functions.
 
 If you would like to write a perl script for example, that queries the
 data on your Palm device, the bindings in the ./Perl subdirectory will
-help you with that. Likewise for the ./Java ./Tcl, and ./Python
+help you with that. Likewise for the ./Tcl, and ./Python
 locations.
 
 Each of them contains a small bit of code that will allow you to "bind"

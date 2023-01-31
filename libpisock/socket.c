@@ -814,7 +814,7 @@ is_listener (pi_socket_t *ps)
 }
 
 /* Alarm Handling Code */
-static RETSIGTYPE
+static void
 onalarm(int signo)
 {
 	pi_socket_list_t *l;

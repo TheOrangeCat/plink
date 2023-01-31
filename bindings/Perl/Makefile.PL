@@ -28,7 +28,7 @@ $h2xsheaders = join(' ', map { "$plincdir/$_" } qw(
 
 sub MY::postamble {
     "%.inc:
-	perl ./h2xs-pilot-link -n PDA::Pilot $h2xsheaders
+	 ./h2xs-pilot-link -n PDA::Pilot $h2xsheaders
 	cp PDA-Pilot/fallback/*.inc .
 	rm -rf PDA-Pilot
 ";
@@ -36,7 +36,7 @@ sub MY::postamble {
 
 WriteMakefile(
     'NAME'       => 'PDA::Pilot',
-    'VERSION'    => '0.12.5',
+    'VERSION'    => '0.12.6',
     'XSPROTOARG' => '-noprototypes',
     'INC'        => "-I$plincdir",
     'DEFINE'     => '-DPERL_POLLUTE',

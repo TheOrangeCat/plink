@@ -21,7 +21,7 @@
 from distutils.core import setup, Extension
 
 setup(name = "python-libpisock",
-      version = "0.12.5",
+      version = "0.12.6",
       description = "Python bindings for the pisock library.",
       author = "Nick Piper",
       author_email = "nick@nickpiper.co.uk",

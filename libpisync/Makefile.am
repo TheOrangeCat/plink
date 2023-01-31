@@ -1,4 +1,4 @@
-INCLUDES = 			\
+AM_CPPFLAGS = 			\
 	-I../include		\
 	-I$(top_srcdir)/include	\
 	$(ICONV_CFLAGS)

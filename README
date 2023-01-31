@@ -71,18 +71,12 @@ There are several core parts of pilot-link:
 	Along with the powerful libraries and conduits, pilot-link also
 	provides the ability to communicate with your Palm handheld using
 	your favorite language of choice.  Currently, pilot-link includes
-	language "bindings" in Perl, Python, Java, and Tcl.  This means you
+	language "bindings" in Perl, Python, and Tcl.  This means you
 	can use those languages, instead of C directly, to talk to your Palm
 	handheld device and communicate with it. 
 
-	Want to write a Java application that uses pilot-link's libraries?
-	Simple! Just use the Java bindings.
-
 	Want to talk to your Palm device using Perl code? Simply use the Perl
 	bindings.
-
-	Our hope is that more bindings will be added in the future, such as
-	Ruby or Objective C.
 
 
 	the tests
@@ -398,7 +392,7 @@ License notes
 	this source tree.
 
 	The libraries (libpisock, libpisync, libpisock++, and libcc) and the
-	language bindings (Perl, Python, Java, and Tcl) are licensed for use
+	language bindings (Perl, Python, and Tcl) are licensed for use
 	under the LGPL. For more information, please see COPYING.LIB included
 	in this source tree.
 	

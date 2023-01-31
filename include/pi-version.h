@@ -13,7 +13,7 @@
 
 #define PILOT_LINK_VERSION 0
 #define PILOT_LINK_MAJOR 12
-#define PILOT_LINK_MINOR 5
+#define PILOT_LINK_MINOR 6
 
 #define PILOT_LINK_PATCH ""
 

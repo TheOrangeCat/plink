@@ -1,6 +1,6 @@
 # $Id: Makefile.am,v 1.4 2007/02/17 02:40:26 desrod Exp $
 
-INCLUDES = 					\
+AM_CPPFLAGS = 					\
 	-I../../include				\
 	-I$(top_srcdir)/include			\
 	-DPACKAGE_VERSION=\"1.0\"		\

@@ -48,7 +48,6 @@
 # define strncasecmp strnicmp
 
 # define TTYPrompt "com#"
-# define RETSIGTYPE void
 # define HAVE_SIGACTION
 # define HAVE_DUP2
 # define HAVE_SYS_SELECT_H

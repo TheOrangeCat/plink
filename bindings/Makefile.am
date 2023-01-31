@@ -1,16 +1,10 @@
-if WITH_JAVA
-JAVA_DIR=Java
-else
-JAVA_DIR=
-endif
-
 if WITH_TCL
 TCL_DIR=Tcl
 else
 TCL_DIR=
 endif
 
-SUBDIRS = $(JAVA_DIR) $(TCL_DIR)
+SUBDIRS = $(TCL_DIR)
 
 #
 # Python Building
@@ -81,4 +75,4 @@ maintainer-clean-local: $(PERL_CLEAN) $(PYTHON_CLEAN)
 dist-hook:
 	rm -rf `find $(distdir) -name CVS`
 
-EXTRA_DIST = Python Java Perl
+EXTRA_DIST = Python Perl

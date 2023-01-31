@@ -1,0 +1,18 @@
+*~
+*.o
+.libs
+_libs
+*.lo
+*.la
+*.a
+.deps
+stamp-h?
+autom4te.cache/
+config.log
+config.status
+config.h
+Makefile
+*.pc
+doxygen.cfg
+catalog.xml
+# TODO: split into multiple gitignores when this gets too big

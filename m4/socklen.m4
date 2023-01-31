@@ -27,14 +27,15 @@ AC_DEFUN([AC_CHECK_SOCKLEN_T],
    AC_CACHE_VAL(kde_cv_socklen_t,
    [
       kde_cv_socklen_t=no
-      AC_TRY_COMPILE([
+      AC_COMPILE_IFELSE(
+      [AC_LANG_PROGRAM([[
          #include <sys/types.h>
          #include <sys/socket.h>
-      ],
-      [
+      ]],
+      [[
          socklen_t len;
          getpeername(0,0,&len);
-      ],
+      ]])],
       [
          kde_cv_socklen_t=yes
          kde_cv_socklen_t_equiv=socklen_t
@@ -47,14 +48,15 @@ AC_DEFUN([AC_CHECK_SOCKLEN_T],
       [
          kde_cv_socklen_t_equiv=int
          for t in int size_t unsigned long "unsigned long"; do
-            AC_TRY_COMPILE([
+            AC_COMPILE_IFELSE(
+            [AC_LANG_PROGRAM([[
                #include <sys/types.h>
                #include <sys/socket.h>
-            ],
-            [
+            ]],
+            [[
                $t len;
                getpeername(0,0,&len);
-            ],
+            ]])],
             [
                kde_cv_socklen_t_equiv="$t"
                break

@@ -2,7 +2,7 @@ SUBDIRS=prc pix
 
 if ENABLE_CONDUITS
 
-INCLUDES = 			\
+AM_CPPFLAGS = 			\
 	-I/usr/include		\
 	-I$(top_srcdir)/include \
 	$(POPT_INCLUDES)	\

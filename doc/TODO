@@ -38,8 +38,6 @@ Minor Issues
 
 	  knghtbrd: this is partly done now.
 
-        - Update Java bindings to use Ant instead of {g|n}make
-
         - Rewrite Perl bindings to take advantage of MakeMaker
 
 	- There's a small perl problem with writing the binary character 11
